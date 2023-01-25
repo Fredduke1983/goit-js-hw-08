@@ -26,7 +26,7 @@ function createHTMLMarkup(galleryItems) {
 }
 createHTMLMarkup(galleryItems);
 
-var lightbox = new SimpleLightbox('.gallery a', {});
+new SimpleLightbox('.gallery a', {});
 
 // Change code below this line
 
