@@ -1,29 +1,14 @@
 import Player from '@vimeo/player';
+import throttle from 'lodash.throttle';
 
 const iframe = document.querySelector('iframe');
 const player = new Player(iframe);
-
-player.on('play', function () {
-  console.log('played the video!');
-});
-
-player.on('pause', function () {
-  player
-    .getCurrentTime()
-    .then(function (seconds) {
-      // seconds = the current playback position
-      console.log(seconds);
-    })
-    .catch(function (error) {
-      // an error occurred
-    });
-});
+const currentTime = 'videoplayer-current-time';
 
 player
-  .setCurrentTime(30.456)
+  .setCurrentTime(localStorage.getItem(currentTime))
   .then(function (seconds) {
     // seconds = the actual time that the player seeked to
-    console.log(seconds);
   })
   .catch(function (error) {
     switch (error.name) {
@@ -36,3 +21,15 @@ player
         break;
     }
   });
+
+player.on(
+  'timeupdate',
+  throttle(function () {
+    player
+      .getCurrentTime()
+      .then(function (seconds) {
+        localStorage.setItem(currentTime, seconds);
+      })
+      .catch(function (error) {});
+  }, 1000)
+);
