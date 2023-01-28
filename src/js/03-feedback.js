@@ -12,8 +12,12 @@ let VALUE = '';
 function current(e) {
   const currentEl = e.target;
   console.log(e.target.value);
-  storage.email = currentEl.name;
-  storage.message = currentEl.value;
+  if (e.target.name === 'email') {
+    storage.email = currentEl.value;
+  } else if (e.target.name === 'message') {
+    storage.message = currentEl.value;
+  }
+
   VALUE = JSON.stringify(storage);
   localStorage.setItem(KEY, VALUE);
 }
