@@ -20,14 +20,32 @@ function currentOnForm(e) {
 
 function setCurrentState(key) {
   const parseStorage = JSON.parse(localStorage.getItem(key));
-
   if (parseStorage) {
+    if (
+      parseStorage.email === undefined ||
+      parseStorage.message === undefined ||
+      parseStorage.email.trim() === '' ||
+      parseStorage.message.trim() === ''
+    ) {
+      alert('Заповніть усі поля форми');
+      return;
+    }
     email.value = parseStorage.email;
     textArea.value = parseStorage.message;
   }
 }
 
 function onSubmitForm(e) {
+  console.log();
+  if (
+    storage.email === undefined ||
+    storage.message === undefined ||
+    storage.email.trim() === '' ||
+    storage.message.trim() === ''
+  ) {
+    alert('Для відправки форми усі поля мають бути заповнені');
+    return;
+  }
   e.preventDefault();
   form.reset();
   localStorage.removeItem(KEY);
