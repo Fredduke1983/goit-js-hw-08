@@ -25,4 +25,4 @@ function createHTMLMarkup(galleryItems) {
 }
 createHTMLMarkup(galleryItems);
 
-new SimpleLightbox('.gallery a', {});
+new SimpleLightbox('.gallery a', { captionsData: 'alt', captionDelay: 250 });
